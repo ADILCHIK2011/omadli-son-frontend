@@ -4,7 +4,7 @@ const loginBtn = document.getElementById("loginBtn");
 
 loginBtn.addEventListener("click", async () => {
   try {
-    const req = await fetch("https://omadli-son-backend-production.up.railway.appp/api/v1/login", {
+    const req = await fetch("https://omadli-son-backend-production.up.railway.app/api/v1/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

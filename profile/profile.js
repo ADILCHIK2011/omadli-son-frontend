@@ -13,11 +13,11 @@ const sendMoneyBtn = document.querySelector("#sendMoney")
 const userBalance = document.querySelector("#userBalance")
 
 function updateUI(userData) {
-    userName.textContent = userData.username
-    userEmail.textContent = userData.email
-    userPhone.textContent = userData.phone
-    userPassword.textContent = "••••••••" 
-    userBalance.textContent = userData.balance.toLocaleString('uz-UZ') + " so'm"
+    userName.textContent = "Username: " + user.username
+    userEmail.textContent = "Email: " + user.email
+    userPhone.textContent = "Telefon raqam: " + user.phone
+    userPassword.textContent = "Parol: " + user.password
+    userBalance.textContent = "Balans: " + userData.balance.toLocaleString('uz-UZ') + " so'm"
 }
 
 updateUI(user)

@@ -12,17 +12,21 @@ const moneyAmount = document.querySelector("#moneyAmount")
 const sendMoneyBtn = document.querySelector("#sendMoney")
 const userBalance = document.querySelector("#userBalance")
 
-userName.textContent = "Username: " + user.username
-userEmail.textContent = "Email: " + user.email
-userPhone.textContent = "Telefon raqam: " + user.phone
-userPassword.textContent = "Parol: " + user.password
-userBalance.textContent = "Balans: " + user.balance
+function updateUI(userData) {
+    userName.textContent = userData.username
+    userEmail.textContent = userData.email
+    userPhone.textContent = userData.phone
+    userPassword.textContent = "••••••••" 
+    userBalance.textContent = userData.balance.toLocaleString('uz-UZ') + " so'm"
+}
+
+updateUI(user)
 
 sendMoneyBtn.addEventListener("click", async () => {
     const amount = moneyAmount.value.trim()
 
-    if (!amount) {
-        alert("Summani kiriting!")
+    if (!amount || amount <= 0) {
+        alert("Iltimos, to'g'ri summani kiriting!")
         return
     }
 
@@ -36,12 +40,21 @@ sendMoneyBtn.addEventListener("click", async () => {
         const res = await req.json()
 
         if (req.ok) {
-            alert("Muvaffaqiyatli tushirildi!")
+            
+            user.balance = res.newBalance || (user.balance + Number(amount))
+            
+            localStorage.setItem("user", JSON.stringify(user))
+            
+            updateUI(user)
+            
             moneyAmount.value = ""
+            
+            alert("Pul muvaffaqiyatli tushirildi! ✅")
         } else {
-            alert(res.message || "Xatolik!")
+            alert(res.message || "Xatolik yuz berdi!")
         }
     } catch (error) {
-        alert("Server bilan bog'lanib bo'lmadi!")
+        console.error(error)
+        alert("Server bilan bog'lanib bo'lmadi! ❌")
     }
 })

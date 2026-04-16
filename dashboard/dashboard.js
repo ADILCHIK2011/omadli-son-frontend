@@ -20,7 +20,8 @@ getNumberBtn.addEventListener("click", async () => {
         const res = await req.json()
 
         if (req.ok) {
-            randomNumberDiv.textContent = res.number
+            randomNumberDiv.textContent = res.number;
+            randomNumberDiv.className = "text-8xl"
         } else {
             alert(res.message || "Xatolik!")
         }
